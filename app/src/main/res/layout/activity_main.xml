@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xw.sample.slidinguppanellayout.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#80DEEA"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground">
+
+        <com.xw.repo.VectorCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:text="Weather"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            app:drawableLeftCompat="@drawable/svg_ic_sunny_cloudy"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FF8A65"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground">
+
+        <com.xw.repo.VectorCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Cards"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            app:drawableLeftCompat="@drawable/svg_ic_cards"/>
+    </FrameLayout>
+
+</LinearLayout>

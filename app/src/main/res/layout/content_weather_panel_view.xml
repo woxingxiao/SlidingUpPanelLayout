@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/panel_content_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/panel_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/panel_collapse_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            app:srcCompat="@drawable/svg_ic_arrow_down"/>
+
+        <ImageView
+            android:id="@+id/panel_settings_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="4dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            app:srcCompat="@drawable/svg_ic_settings"/>
+    </FrameLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/panel_expend_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="#03A9F4">
+
+        <TextView
+            android:id="@+id/panel_city_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="成都"/>
+
+        <ImageView
+            android:id="@+id/panel_weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@null"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/panel_weather_desc_text"
+            app:layout_constraintTop_toBottomOf="@+id/panel_city_text"
+            app:srcCompat="@drawable/svg_ic_sunny_cloudy"/>
+
+        <TextView
+            android:id="@+id/panel_weather_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/panel_weather_icon"
+            app:layout_constraintLeft_toRightOf="@+id/panel_weather_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/panel_weather_icon"
+            tools:text="晴"/>
+
+        <TextView
+            android:id="@+id/panel_temp_now_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/panel_air_condition_text"
+            app:layout_constraintTop_toBottomOf="@+id/panel_weather_icon"
+            tools:text="22℃"/>
+
+        <TextView
+            android:id="@+id/panel_air_condition_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/panel_temp_now_text"
+            app:layout_constraintLeft_toRightOf="@+id/panel_temp_now_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/panel_temp_now_text"
+            tools:text="优"/>
+
+        <TextView
+            android:id="@+id/panel_temp_range_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="@+id/panel_temp_now_text"
+            app:layout_constraintRight_toRightOf="@+id/panel_temp_now_text"
+            app:layout_constraintTop_toBottomOf="@+id/panel_temp_now_text"
+            tools:text="25℃ / 20℃"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="空气质量"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="@+id/panel_air_condition_text"
+            app:layout_constraintRight_toRightOf="@+id/panel_air_condition_text"
+            app:layout_constraintTop_toBottomOf="@+id/panel_air_condition_text"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/panel_collapse_layout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:alpha="0.0"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        tools:alpha="1.0">
+
+        <TextView
+            android:id="@+id/panel_city_text_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:text="成都"/>
+
+        <TextView
+            android:id="@+id/panel_weather_desc_text_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:text="晴"/>
+
+        <TextView
+            android:id="@+id/panel_temp_now_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:text="22°C"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/panel_weather_icon_collapse"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:contentDescription="@null"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/svg_ic_sunny_cloudy"/>
+    </LinearLayout>
+</FrameLayout>
