@@ -12,35 +12,64 @@
         android:id="@+id/bg_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#424242">
+        android:background="#616161">
 
+        <TextView
+            android:id="@+id/pick_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="120dp"
+            android:text="Pick a credit card to pay"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/pay_hint_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="260dp"
+            android:alpha="0.0"
+            android:drawablePadding="8dp"
+            android:drawableTop="@mipmap/ic_finger_print"
+            android:text="Pay with Touch ID"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:alpha="1.0"/>
     </android.support.constraint.ConstraintLayout>
 
     <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cpv_cardCount="4"
-        app:cpv_cardImageRes="@color/colorPrimaryDark"
+        app:cpv_cardImageRes="@mipmap/pic_card1"
         app:cpv_cardPosition="0"/>
 
     <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cpv_cardCount="4"
-        app:cpv_cardImageRes="@color/colorAccent"
+        app:cpv_cardImageRes="@mipmap/pic_card2"
         app:cpv_cardPosition="1"/>
 
     <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cpv_cardCount="4"
-        app:cpv_cardImageRes="@color/colorPrimary"
+        app:cpv_cardImageRes="@mipmap/pic_card3"
         app:cpv_cardPosition="2"/>
 
     <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cpv_cardCount="4"
-        app:cpv_cardImageRes="@color/colorBlue"
+        app:cpv_cardImageRes="@mipmap/pic_card4"
         app:cpv_cardPosition="3"/>
 </com.xw.repo.SlidingUpPanelLayout>

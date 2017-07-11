@@ -32,6 +32,7 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
     private int mPanelRealHeight;
     @SlidingUpPanelLayout.SlideState
     private int mSlideState = COLLAPSED;
+    private int mPaddingTop;
 
     public CardPanelView(Context context) {
         this(context, null);
@@ -63,8 +64,11 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
         }
 
         mPanelHeight = dp2px(100) - mCardCount * dp2px(10);
-        if (mPanelHeight <= 10)
+        if (mPanelHeight <= 10) {
             mPanelHeight = dp2px(20);
+        }
+        mPaddingTop = dp2px(32);
+        setPadding(0, mPaddingTop, 0, 0);
 
         setClickable(true);
         setOnClickListener(new View.OnClickListener() {
@@ -87,7 +91,7 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
     @Override
     public int getPanelExpendedHeight() {
         if (mPanelExpendedHeight == 0) {
-            mPanelExpendedHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+            mPanelExpendedHeight = Resources.getSystem().getDisplayMetrics().heightPixels - mPaddingTop;
         }
         return mPanelExpendedHeight;
     }
@@ -110,7 +114,7 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
     @Override
     public int getPanelTopBySlidingState() {
         if (mSlideState == EXPANDED) {
-            return 0;
+            return mPaddingTop;
         } else if (mSlideState == COLLAPSED) {
             return getPanelExpendedHeight() - getPanelCollapsedHeight();
         }

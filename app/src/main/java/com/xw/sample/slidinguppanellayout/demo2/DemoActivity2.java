@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.xw.repo.ISlidingUpPanel;
 import com.xw.repo.SlidingUpPanelLayout;
@@ -19,8 +20,14 @@ public class DemoActivity2 extends AppCompatActivity {
 
     @BindView(R.id.sliding_up_panel_layout)
     SlidingUpPanelLayout mSlidingUpPanelLayout;
+    @BindView(R.id.pick_hint_text)
+    TextView mPickHintText;
+    @BindView(R.id.pay_hint_text)
+    TextView mPayHintText;
     @BindView(R.id.bg_layout)
     View mBgLayout;
+
+    private ISlidingUpPanel mSlidingUpPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,8 @@ public class DemoActivity2 extends AppCompatActivity {
         mSlidingUpPanelLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListenerAdapter() {
             @Override
             public void onPanelExpanded(ISlidingUpPanel panel) {
+                mSlidingUpPanel = panel;
+
                 int childCount = mSlidingUpPanelLayout.getChildCount();
                 CardPanelView card;
                 for (int i = 1; i < childCount; i++) {
@@ -54,11 +63,16 @@ public class DemoActivity2 extends AppCompatActivity {
                         break;
                     }
                 }
+
+                mPayHintText.setAlpha(1.0f);
             }
 
             @Override
             public void onPanelSliding(ISlidingUpPanel panel, float slideProgress) {
-                super.onPanelSliding(panel, slideProgress);
+                if (mSlidingUpPanel == null || mSlidingUpPanel == panel) {
+                    mPickHintText.setAlpha(1 - slideProgress);
+                    mPayHintText.setAlpha(slideProgress);
+                }
             }
         });
 
