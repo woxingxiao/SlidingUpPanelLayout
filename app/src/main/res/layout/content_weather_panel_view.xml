@@ -50,35 +50,60 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="成都"/>
 
+        <TextView
+            android:id="@+id/panel_temp_now_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@android:color/white"
+            android:textSize="60sp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/panel_city_text"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="22"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:text="℃"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/panel_temp_now_text"
+            app:layout_constraintLeft_toRightOf="@+id/panel_temp_now_text"
+            app:layout_constraintRight_toRightOf="parent"/>
+
         <ImageView
             android:id="@+id/panel_weather_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:contentDescription="@null"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/panel_weather_desc_text"
-            app:layout_constraintTop_toBottomOf="@+id/panel_city_text"
+            app:layout_constraintTop_toBottomOf="@+id/panel_temp_now_text"
             app:srcCompat="@drawable/svg_ic_sunny_cloudy"/>
 
         <TextView
             android:id="@+id/panel_weather_desc_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
-            android:fontFamily="sans-serif-thin"
+            android:layout_margin="8dp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/panel_weather_icon"
             app:layout_constraintLeft_toRightOf="@+id/panel_weather_icon"
             app:layout_constraintRight_toRightOf="parent"
@@ -86,49 +111,161 @@
             tools:text="晴"/>
 
         <TextView
-            android:id="@+id/panel_temp_now_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/panel_air_condition_text"
-            app:layout_constraintTop_toBottomOf="@+id/panel_weather_icon"
-            tools:text="22℃"/>
-
-        <TextView
             android:id="@+id/panel_air_condition_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:padding="4dp"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@+id/panel_temp_now_text"
-            app:layout_constraintLeft_toRightOf="@+id/panel_temp_now_text"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/panel_temp_now_text"
-            tools:text="优"/>
+            app:layout_constraintTop_toBottomOf="@+id/panel_weather_icon"
+            tools:text="空气优 20"/>
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="80dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="100dp"
+            android:background="#40ffffff"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/layout2">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/day1_weather_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:src="@drawable/svg_ic_sunny"/>
+
+            <TextView
+                android:id="@+id/day1_weather_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColor="@android:color/white"
+                tools:text="晴"/>
+
+            <TextView
+                android:id="@+id/day1_temp_range_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                tools:text="25℃ ~ 30℃"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="80dp"
+            android:layout_height="96dp"
+            android:background="#40ffffff"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/layout1"
+            app:layout_constraintLeft_toRightOf="@+id/layout1"
+            app:layout_constraintRight_toLeftOf="@+id/layout3"
+            app:layout_constraintTop_toTopOf="@+id/layout1">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/day2_weather_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:src="@drawable/svg_ic_sunny"/>
+
+            <TextView
+                android:id="@+id/day2_weather_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColor="@android:color/white"
+                tools:text="晴"/>
+
+            <TextView
+                android:id="@+id/day2_temp_range_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                tools:text="25℃ ~ 30℃"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout3"
+            android:layout_width="80dp"
+            android:layout_height="96dp"
+            android:background="#40ffffff"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/layout2"
+            app:layout_constraintLeft_toRightOf="@+id/layout2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout2">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/day3_weather_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:src="@drawable/svg_ic_sunny"/>
+
+            <TextView
+                android:id="@+id/day3_weather_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColor="@android:color/white"
+                tools:text="晴"/>
+
+            <TextView
+                android:id="@+id/day3_temp_range_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                tools:text="25℃ ~ 30℃"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/panel_temp_range_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="今天"
             android:textColor="@android:color/white"
-            app:layout_constraintLeft_toLeftOf="@+id/panel_temp_now_text"
-            app:layout_constraintRight_toRightOf="@+id/panel_temp_now_text"
-            app:layout_constraintTop_toBottomOf="@+id/panel_temp_now_text"
-            tools:text="25℃ / 20℃"/>
+            app:layout_constraintLeft_toLeftOf="@+id/layout1"
+            app:layout_constraintRight_toRightOf="@+id/layout1"
+            app:layout_constraintTop_toBottomOf="@+id/layout1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="空气质量"
+            android:text="明天"
             android:textColor="@android:color/white"
-            app:layout_constraintLeft_toLeftOf="@+id/panel_air_condition_text"
-            app:layout_constraintRight_toRightOf="@+id/panel_air_condition_text"
-            app:layout_constraintTop_toBottomOf="@+id/panel_air_condition_text"/>
+            app:layout_constraintLeft_toLeftOf="@+id/layout2"
+            app:layout_constraintRight_toRightOf="@+id/layout2"
+            app:layout_constraintTop_toBottomOf="@+id/layout2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="后天"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="@+id/layout3"
+            app:layout_constraintRight_toRightOf="@+id/layout3"
+            app:layout_constraintTop_toBottomOf="@+id/layout3"/>
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout

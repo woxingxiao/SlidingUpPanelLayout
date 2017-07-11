@@ -22,7 +22,7 @@ import static com.xw.repo.SlidingUpPanelLayout.COLLAPSED;
  * Created by woxingxiao on 2017-07-10.
  */
 
-public abstract class BasePanelView extends CardView implements ISlidingUpPanel<BasePanelView> {
+public abstract class BaseWeatherPanelView extends CardView implements ISlidingUpPanel<BaseWeatherPanelView> {
 
     protected static int MAX_RADIUS;
 
@@ -36,15 +36,15 @@ public abstract class BasePanelView extends CardView implements ISlidingUpPanel<
 
     protected WeatherModel mWeather;
 
-    public BasePanelView(Context context) {
+    public BaseWeatherPanelView(Context context) {
         this(context, null);
     }
 
-    public BasePanelView(Context context, @Nullable AttributeSet attrs) {
+    public BaseWeatherPanelView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BasePanelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BaseWeatherPanelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         MAX_RADIUS = dp2px(16);
@@ -75,12 +75,12 @@ public abstract class BasePanelView extends CardView implements ISlidingUpPanel<
     }
 
     @Override
-    public BasePanelView getPanelView() {
+    public BaseWeatherPanelView getPanelView() {
         return this;
     }
 
     @Override
-    public int getExpendedHeight() {
+    public int getPanelExpendedHeight() {
         if (mExpendedHeight == 0)
             mExpendedHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
@@ -88,7 +88,7 @@ public abstract class BasePanelView extends CardView implements ISlidingUpPanel<
     }
 
     @Override
-    public int getCollapsedHeight() {
+    public int getPanelCollapsedHeight() {
         return getRealPanelHeight();
     }
 
@@ -99,17 +99,18 @@ public abstract class BasePanelView extends CardView implements ISlidingUpPanel<
     }
 
     @Override
-    public int getPanelViewTopBySlidingState() {
+    public int getPanelTopBySlidingState() {
         if (mSlideState == SlidingUpPanelLayout.EXPANDED) {
             return 0;
         } else if (mSlideState == COLLAPSED) {
-            return getExpendedHeight() - getCollapsedHeight();
+            return getPanelExpendedHeight() - getPanelCollapsedHeight();
         } else if (mSlideState == SlidingUpPanelLayout.HIDDEN) {
-            return getExpendedHeight();
+            return getPanelExpendedHeight();
         }
         return 0;
     }
 
+    @Override
     public void setSlideState(@SlidingUpPanelLayout.SlideState int slideState) {
         mSlideState = slideState;
 
@@ -118,21 +119,20 @@ public abstract class BasePanelView extends CardView implements ISlidingUpPanel<
         }
     }
 
-    public void updateTop(int top, int slidingViewRealHeight) {
-        int myTop = (int) (getExpendedHeight() + getSlope(slidingViewRealHeight) * top);
-        setTop(myTop);
+    @Override
+    public void onSliding(ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
+        if (panel != this) {
+            int myTop = (int) (getPanelExpendedHeight() + getSlope(((BaseWeatherPanelView) panel).getRealPanelHeight()) * top);
+            setTop(myTop);
+        }
     }
 
     public float getSlope(int slidingViewRealHeight) {
         if (mSlope == 0) {
-            mSlope = -1.0f * getRealPanelHeight() / (getExpendedHeight() - slidingViewRealHeight);
+            mSlope = -1.0f * getRealPanelHeight() / (getPanelExpendedHeight() - slidingViewRealHeight);
         }
 
         return mSlope;
-    }
-
-    public void onSliding(int top, int dy) {
-
     }
 
     public abstract void setWeatherModel(WeatherModel weather);

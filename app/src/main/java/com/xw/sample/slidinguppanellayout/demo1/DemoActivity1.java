@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.xw.repo.ISlidingUpPanel;
 import com.xw.repo.SlidingUpPanelLayout;
@@ -16,6 +17,7 @@ import com.xw.sample.slidinguppanellayout.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,17 +59,16 @@ public class DemoActivity1 extends AppCompatActivity {
         mSlidingUpPanelLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListenerAdapter() {
             @Override
             public void onPanelExpanded(ISlidingUpPanel panel) {
-                // 被展开的Panel非最上层Panel，做如下处理，再被收起时已在最上层
-                if (panel instanceof BasePanelView) {
-
+                if (panel instanceof BaseWeatherPanelView) {
                     int count = mSlidingUpPanelLayout.getChildCount();
-                    if (((BasePanelView) panel).getFloor() != count - 1) {
+                    // 如果被展开的Panel不是距离屏幕顶部最近（floor值最大）那个，做如下处理，再被收起时已是距屏幕顶部最近
+                    if (((BaseWeatherPanelView) panel).getFloor() != count - 1) {
 
                         mSlidingUpPanelLayout.removeView(panel.getPanelView());
                         mSlidingUpPanelLayout.addView(panel.getPanelView(), 1);
 
                         for (int i = 1; i < count; i++) {
-                            BasePanelView child = (BasePanelView) mSlidingUpPanelLayout.getChildAt(i);
+                            BaseWeatherPanelView child = (BaseWeatherPanelView) mSlidingUpPanelLayout.getChildAt(i);
                             child.setFloor(count - i);
                         }
                         mSlidingUpPanelLayout.requestLayout();
@@ -106,13 +107,37 @@ public class DemoActivity1 extends AppCompatActivity {
 
     private void loadData() {
         mWeatherList.clear();
-        mWeatherList.add(new WeatherModel("成都", 0, "晴", "24℃", "20℃", "28℃", "优"));
-        mWeatherList.add(new WeatherModel("北京", 1, "多云", "26℃", "22℃", "32℃", "良"));
-        mWeatherList.add(new WeatherModel("上海", 2, "雨", "20℃", "18℃", "25℃", "良"));
+
+        WeatherModel weather;
+        List<WeatherModel> forecast;
+
+        weather = new WeatherModel("成都", 0, "24", "20", "28", "优");
+        forecast = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            forecast.add(new WeatherModel(new Random().nextInt(3), "32", "36"));
+        }
+        weather.setForecasts(forecast);
+        mWeatherList.add(weather);
+
+        weather = new WeatherModel("北京", 1, "26", "22", "32", "良");
+        forecast = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            forecast.add(new WeatherModel(new Random().nextInt(3), "27", "33"));
+        }
+        weather.setForecasts(forecast);
+        mWeatherList.add(weather);
+
+        weather = new WeatherModel("上海", 2, "20", "18", "25", "良");
+        forecast = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            forecast.add(new WeatherModel(new Random().nextInt(3), "23", "28"));
+        }
+        weather.setForecasts(forecast);
+        mWeatherList.add(weather);
 
         mSlidingUpPanelLayout.setAdapter(new SlidingUpPanelLayout.Adapter() {
 
-            private int mSize = mWeatherList.size();
+            private final int mSize = mWeatherList.size();
 
             @Override
             public int getItemCount() {
@@ -122,7 +147,7 @@ public class DemoActivity1 extends AppCompatActivity {
             @NonNull
             @Override
             public ISlidingUpPanel onCreateSlidingPanel(int position) {
-                WeatherSlidingPanelView panel = new WeatherSlidingPanelView(DemoActivity1.this);
+                WeatherPanelView panel = new WeatherPanelView(DemoActivity1.this);
                 panel.setFloor(mSize - position);
                 panel.setPanelHeight(mSize == 1 ? Util.dp2px(120) : Util.dp2px(80));
                 if (position == 0) {
@@ -141,7 +166,7 @@ public class DemoActivity1 extends AppCompatActivity {
                 if (mSize == 0)
                     return;
 
-                BasePanelView BasePanel = (BasePanelView) panel;
+                BaseWeatherPanelView BasePanel = (BaseWeatherPanelView) panel;
                 BasePanel.setWeatherModel(mWeatherList.get(position));
                 BasePanel.setClickable(true);
                 BasePanel.setOnClickListener(new View.OnClickListener() {
@@ -160,5 +185,6 @@ public class DemoActivity1 extends AppCompatActivity {
 
     @OnClick(R.id.add_city_text)
     public void onViewClicked() {
+        Toast.makeText(this, "添加城市", Toast.LENGTH_SHORT).show();
     }
 }

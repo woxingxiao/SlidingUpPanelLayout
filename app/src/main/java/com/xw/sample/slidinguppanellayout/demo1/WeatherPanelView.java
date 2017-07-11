@@ -7,16 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.xw.repo.ISlidingUpPanel;
 import com.xw.repo.SlidingUpPanelLayout;
 import com.xw.sample.slidinguppanellayout.R;
+
+import java.util.List;
 
 /**
  * <p/>
  * Created by woxingxiao on 2017-07-10.
  */
 
-public class WeatherSlidingPanelView extends BasePanelView implements View.OnClickListener {
+public class WeatherPanelView extends BaseWeatherPanelView implements View.OnClickListener {
 
     private View mContentLayout;
     private View mMenuLayout;
@@ -28,7 +32,15 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
     private TextView mWeatherDescText;
     private TextView mTempNowText;
     private TextView mAqiDescText;
-    private TextView mTempRangeText;
+    private ImageView mDay1WeatherIcon;
+    private TextView mDay1WeatherDescText;
+    private TextView mDay1TempRangeText;
+    private ImageView mDay2WeatherIcon;
+    private TextView mDay2WeatherDescText;
+    private TextView mDay2TempRangeText;
+    private ImageView mDay3WeatherIcon;
+    private TextView mDay3WeatherDescText;
+    private TextView mDay3TempRangeText;
 
     private View mCollapseLayout;
     private TextView mCityTextCollapse;
@@ -38,15 +50,15 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
 
     private int mWeatherTypeCode;
 
-    public WeatherSlidingPanelView(Context context) {
+    public WeatherPanelView(Context context) {
         this(context, null);
     }
 
-    public WeatherSlidingPanelView(Context context, AttributeSet attrs) {
+    public WeatherPanelView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public WeatherSlidingPanelView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public WeatherPanelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         LayoutInflater.from(context).inflate(R.layout.content_weather_panel_view, this, true);
@@ -60,7 +72,15 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
         mWeatherDescText = (TextView) findViewById(R.id.panel_weather_desc_text);
         mTempNowText = (TextView) findViewById(R.id.panel_temp_now_text);
         mAqiDescText = (TextView) findViewById(R.id.panel_air_condition_text);
-        mTempRangeText = (TextView) findViewById(R.id.panel_temp_range_text);
+        mDay1WeatherIcon = (ImageView) findViewById(R.id.day1_weather_icon);
+        mDay1WeatherDescText = (TextView) findViewById(R.id.day1_weather_desc_text);
+        mDay1TempRangeText = (TextView) findViewById(R.id.day1_temp_range_text);
+        mDay2WeatherIcon = (ImageView) findViewById(R.id.day2_weather_icon);
+        mDay2WeatherDescText = (TextView) findViewById(R.id.day2_weather_desc_text);
+        mDay2TempRangeText = (TextView) findViewById(R.id.day2_temp_range_text);
+        mDay3WeatherIcon = (ImageView) findViewById(R.id.day3_weather_icon);
+        mDay3WeatherDescText = (TextView) findViewById(R.id.day3_weather_desc_text);
+        mDay3TempRangeText = (TextView) findViewById(R.id.day3_temp_range_text);
         mCollapseLayout = findViewById(R.id.panel_collapse_layout);
         mCityTextCollapse = (TextView) findViewById(R.id.panel_city_text_collapse);
         mWeatherDescTextCollapse = (TextView) findViewById(R.id.panel_weather_desc_text_collapse);
@@ -87,8 +107,8 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
 
                 break;
             case R.id.panel_settings_img:
-                if (mSettingsImg.getAlpha() == 1) {
-
+                if (mSettingsImg.getAlpha() >= 1) {
+                    Toast.makeText(getContext(), "settings", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -103,7 +123,9 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
     }
 
     @Override
-    public void onSliding(int top, int dy) {
+    public void onSliding(ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
+        super.onSliding(panel, top, dy, slidedProgress);
+
         if (dy < 0) { // 向上
             float radius = getRadius();
             if (radius > 0 && MAX_RADIUS >= top) {
@@ -156,6 +178,7 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
 
     @Override
     public void setWeatherModel(WeatherModel weather) {
+        mWeather = weather;
         if (weather == null)
             return;
 
@@ -180,9 +203,61 @@ public class WeatherSlidingPanelView extends BasePanelView implements View.OnCli
         }
         mTempNowText.setText(weather.getTempNow());
         mTempNowTextCollapse.setText(weather.getTempNow());
-        String s = weather.getTempMin() + " / " + weather.getTempMax();
-        mTempRangeText.setText(s);
+        mTempNowTextCollapse.append("℃");
         mAqiDescText.setText(weather.getAqiDesc());
+
+        List<WeatherModel> forecasts = weather.getForecasts();
+        if (forecasts != null && !forecasts.isEmpty()) {
+            WeatherModel forecast;
+
+            forecast = forecasts.get(0);
+            if (forecast != null) {
+                if (forecast.getCode() == 1) {
+                    mDay1WeatherIcon.setImageResource(R.drawable.svg_ic_sunny_cloudy);
+                    mDay1WeatherDescText.setText("多云");
+                } else if (forecast.getCode() == 2) {
+                    mDay1WeatherIcon.setImageResource(R.drawable.svg_ic_rainy);
+                    mDay1WeatherDescText.setText("雨");
+                } else {
+                    mDay1WeatherIcon.setImageResource(R.drawable.svg_ic_sunny);
+                    mDay1WeatherDescText.setText("晴");
+                }
+                String range = forecast.getTempMin() + "℃ ~ " + forecast.getTempMax() + "℃";
+                mDay1TempRangeText.setText(range);
+            }
+
+            forecast = forecasts.get(1);
+            if (forecast != null) {
+                if (forecast.getCode() == 1) {
+                    mDay2WeatherIcon.setImageResource(R.drawable.svg_ic_sunny_cloudy);
+                    mDay2WeatherDescText.setText("多云");
+                } else if (forecast.getCode() == 2) {
+                    mDay2WeatherIcon.setImageResource(R.drawable.svg_ic_rainy);
+                    mDay2WeatherDescText.setText("雨");
+                } else {
+                    mDay2WeatherIcon.setImageResource(R.drawable.svg_ic_sunny);
+                    mDay2WeatherDescText.setText("晴");
+                }
+                String range = forecast.getTempMin() + "℃ ~ " + forecast.getTempMax() + "℃";
+                mDay2TempRangeText.setText(range);
+            }
+
+            forecast = forecasts.get(2);
+            if (forecast != null) {
+                if (forecast.getCode() == 1) {
+                    mDay3WeatherIcon.setImageResource(R.drawable.svg_ic_sunny_cloudy);
+                    mDay3WeatherDescText.setText("多云");
+                } else if (forecast.getCode() == 2) {
+                    mDay3WeatherIcon.setImageResource(R.drawable.svg_ic_rainy);
+                    mDay3WeatherDescText.setText("雨");
+                } else {
+                    mDay3WeatherIcon.setImageResource(R.drawable.svg_ic_sunny);
+                    mDay3WeatherDescText.setText("晴");
+                }
+                String range = forecast.getTempMin() + "℃ ~ " + forecast.getTempMax() + "℃";
+                mDay3TempRangeText.setText(range);
+            }
+        }
 
         checkVisibilityOfViews();
     }
