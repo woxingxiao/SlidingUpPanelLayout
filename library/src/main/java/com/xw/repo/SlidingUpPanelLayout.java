@@ -182,8 +182,8 @@ public class SlidingUpPanelLayout extends ViewGroup {
             int childRight = childLeft + child.getMeasuredWidth();
 
             if (child instanceof ISlidingUpPanel) {
-                childTop = ((ISlidingUpPanel) child).getPanelTopBySlidingState();
-                childBottom = childTop + child.getMeasuredHeight();
+                childTop = ((ISlidingUpPanel) child).getPanelTopBySlidingState() + getPaddingTop();
+                childBottom = childTop + ((ISlidingUpPanel) child).getPanelExpendedHeight();
             }
 
             child.layout(childLeft, childTop, childRight, childBottom);
@@ -385,8 +385,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     private int computePanelTopPosition(float slideProgress) {
-        int slideDistance = (int) (slideProgress * (mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight()));
-        return getMeasuredHeight() - getPaddingBottom() - mSlidingUpPanel.getPanelCollapsedHeight() - slideDistance;
+        return (int) ((mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight()) * (1 - slideProgress));
     }
 
     private float computeSlidedProgress(int topPosition) {
@@ -441,11 +440,11 @@ public class SlidingUpPanelLayout extends ViewGroup {
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             isSlidingUp = dy < 0;
             mSlidingUpPanel.setSlideState(DRAGGING);
+
+            mSlidedProgress = computeSlidedProgress(top);
             if (mPanelSlideListener != null) {
                 mPanelSlideListener.onPanelSliding(mSlidingUpPanel, mSlidedProgress);
             }
-
-            mSlidedProgress = computeSlidedProgress(top);
 
             for (int i = 1; i < getChildCount(); i++) {
                 ISlidingUpPanel view = (ISlidingUpPanel) getChildAt(i);
@@ -463,7 +462,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
             }
 
             if (mDragHelper != null) {
-                mDragHelper.settleCapturedViewAt(releasedChild.getLeft(), target);
+                mDragHelper.settleCapturedViewAt(releasedChild.getLeft() + getPaddingLeft(), target);
                 invalidate();
             }
         }
