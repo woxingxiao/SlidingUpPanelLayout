@@ -11,18 +11,16 @@ public interface ISlidingUpPanel<T extends View> {
 
     T getPanelView();
 
-    int getExpendedHeight();
+    int getPanelExpendedHeight();
 
-    int getCollapsedHeight();
+    int getPanelCollapsedHeight();
 
     @SlidingUpPanelLayout.SlideState
     int getSlideState();
 
     void setSlideState(@SlidingUpPanelLayout.SlideState int slideState);
 
-    int getPanelViewTopBySlidingState();
+    int getPanelTopBySlidingState();
 
-    void updateTop(int top, int slidingViewRealHeight);
-
-    void onSliding(int top, int dy);
+    void onSliding(ISlidingUpPanel panel, int top, int dy, float slidedProgress);
 }

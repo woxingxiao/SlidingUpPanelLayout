@@ -182,7 +182,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
             int childRight = childLeft + child.getMeasuredWidth();
 
             if (child instanceof ISlidingUpPanel) {
-                childTop = ((ISlidingUpPanel) child).getPanelViewTopBySlidingState();
+                childTop = ((ISlidingUpPanel) child).getPanelTopBySlidingState();
                 childBottom = childTop + child.getMeasuredHeight();
             }
 
@@ -251,6 +251,12 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
     }
 
+    public boolean expandPanel(@NonNull ISlidingUpPanel panel) {
+        mSlidingUpPanel = panel;
+
+        return expandPanel();
+    }
+
     public boolean expandPanel() {
         if (isFirstLayout) {
             mSlidingUpPanel.setSlideState(EXPANDED);
@@ -258,6 +264,12 @@ public class SlidingUpPanelLayout extends ViewGroup {
         } else {
             return mSlidingUpPanel.getSlideState() == EXPANDED || isFirstLayout || smoothSlideTo(1.0f);
         }
+    }
+
+    public boolean collapsePanel(@NonNull ISlidingUpPanel panel) {
+        mSlidingUpPanel = panel;
+
+        return collapsePanel();
     }
 
     public boolean collapsePanel() {
@@ -373,13 +385,13 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     private int computePanelTopPosition(float slideProgress) {
-        int slideDistance = (int) (slideProgress * (mSlidingUpPanel.getExpendedHeight() - mSlidingUpPanel.getCollapsedHeight()));
-        return getMeasuredHeight() - getPaddingBottom() - mSlidingUpPanel.getCollapsedHeight() - slideDistance;
+        int slideDistance = (int) (slideProgress * (mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight()));
+        return getMeasuredHeight() - getPaddingBottom() - mSlidingUpPanel.getPanelCollapsedHeight() - slideDistance;
     }
 
     private float computeSlidedProgress(int topPosition) {
         final int collapsedTop = computePanelTopPosition(0);
-        return (float) (collapsedTop - topPosition) / (mSlidingUpPanel.getExpendedHeight() - mSlidingUpPanel.getCollapsedHeight());
+        return (float) (collapsedTop - topPosition) / (mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight());
     }
 
     private class DragHelperCallback extends ViewDragHelper.Callback {
@@ -437,11 +449,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
 
             for (int i = 1; i < getChildCount(); i++) {
                 ISlidingUpPanel view = (ISlidingUpPanel) getChildAt(i);
-                if (view == mSlidingUpPanel) {
-                    view.onSliding(top, dy);
-                } else {
-                    view.updateTop(top, mSlidingUpPanel.getCollapsedHeight());
-                }
+                view.onSliding(mSlidingUpPanel, top, dy, mSlidedProgress);
             }
         }
 
@@ -463,7 +471,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         @Override
         public int getViewVerticalDragRange(View child) {
             if (mSlidingUpPanel != null) {
-                return mSlidingUpPanel.getExpendedHeight() - mSlidingUpPanel.getCollapsedHeight();
+                return mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight();
             }
 
             return 0;
