@@ -22,6 +22,10 @@
             android:name=".demo1.DemoActivity1"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".demo2.DemoActivity2"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

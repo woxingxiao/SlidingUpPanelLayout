@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xw.repo.SlidingUpPanelLayout
+    android:id="@+id/sliding_up_panel_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xw.sample.slidinguppanellayout.demo1.DemoActivity1">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/bg_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#424242">
+
+    </android.support.constraint.ConstraintLayout>
+
+    <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cpv_cardCount="4"
+        app:cpv_cardImageRes="@color/colorPrimaryDark"
+        app:cpv_cardPosition="0"/>
+
+    <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cpv_cardCount="4"
+        app:cpv_cardImageRes="@color/colorAccent"
+        app:cpv_cardPosition="1"/>
+
+    <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cpv_cardCount="4"
+        app:cpv_cardImageRes="@color/colorPrimary"
+        app:cpv_cardPosition="2"/>
+
+    <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cpv_cardCount="4"
+        app:cpv_cardImageRes="@color/colorBlue"
+        app:cpv_cardPosition="3"/>
+</com.xw.repo.SlidingUpPanelLayout>

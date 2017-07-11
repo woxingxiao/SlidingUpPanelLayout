@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.xw.sample.slidinguppanellayout.demo1.DemoActivity1;
+import com.xw.sample.slidinguppanellayout.demo2.DemoActivity2;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.layout2:
+                startActivity(new Intent(this, DemoActivity2.class));
+
                 break;
         }
     }

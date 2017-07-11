@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CardPanelView">
+        <attr name="cpv_cardPosition" format="integer"/>
+        <attr name="cpv_cardCount" format="integer"/>
+        <attr name="cpv_cardImageRes" format="reference|integer"/>
+    </declare-styleable>
+
+</resources>
