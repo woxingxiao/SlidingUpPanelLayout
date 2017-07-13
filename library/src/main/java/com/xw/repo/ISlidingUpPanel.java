@@ -4,7 +4,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
- * Your views must implement this interface so the {@link SlidingUpPanelLayout} can work properly.
+ * <p>
+ * Your views must implement this interface, and override its methods according to your demands,
+ * so the {@link SlidingUpPanelLayout} can work properly.
  * <p/>
  * Created by woxignxiao on 2017-07-10.
  */
@@ -12,7 +14,7 @@ import android.view.View;
 public interface ISlidingUpPanel<T extends View> {
 
     /**
-     * The view can be slided now.
+     * The <b>Panel</b> was focused and can be slided.
      *
      * @return instance of a focused <b>Panel</b>.
      */
@@ -20,6 +22,8 @@ public interface ISlidingUpPanel<T extends View> {
     T getPanelView();
 
     /**
+     * Generally, this method returns {@link SlidingUpPanelLayout}'s height.
+     *
      * @return The height of a focused <b>Panel</b> when expanded. In pixels.
      */
     int getPanelExpandedHeight();
@@ -42,9 +46,9 @@ public interface ISlidingUpPanel<T extends View> {
 
     /**
      * This method would be called inside {@link SlidingUpPanelLayout#onLayout(boolean, int, int, int, int)}.
-     * The value returned of this method decides the <b>Panel</b>s top pixels related to the parent.
+     * The value returned of this method is the offsets of the <b>Panel</b>'s top to its parent's top. In pixels.
      * <p>
-     * Briefly, it controls initial position of <b>Panel</b> in parent.
+     * Briefly, it controls initial position of <b>Panel</b> in its parent.
      * </p>
      *
      * @return The <code>Top</code> of <b>Panel</b>. In pixels.

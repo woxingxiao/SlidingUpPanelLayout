@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+def VERSION_NAME = "1.0.0"
 
 android {
     compileSdkVersion 25
@@ -8,7 +11,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName VERSION_NAME
 
     }
     buildTypes {
@@ -22,4 +25,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     provided 'com.android.support:appcompat-v7:25.3.1'
+}
+
+publish {
+    userOrg = 'woxingxiao'
+    groupId = 'com.xw.repo'
+    artifactId = 'SlidingUpPanelLayout'
+    publishVersion = VERSION_NAME
+    desc = 'A vertical-handled and multi-panel support SlidingPanelLayout.'
+    website = 'https://github.com/woxingxiao/SlidingUpPanelLayout'
 }
