@@ -3,6 +3,7 @@ package com.xw.sample.slidinguppanellayout.demo2;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -83,13 +84,14 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
         });
     }
 
+    @NonNull
     @Override
     public CardPanelView getPanelView() {
         return this;
     }
 
     @Override
-    public int getPanelExpendedHeight() {
+    public int getPanelExpandedHeight() {
         if (mPanelExpendedHeight == 0) {
             mPanelExpendedHeight = Resources.getSystem().getDisplayMetrics().heightPixels - mPaddingTop;
         }
@@ -112,17 +114,17 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
     }
 
     @Override
-    public int getPanelTopBySlidingState() {
-        if (mSlideState == EXPANDED) {
+    public int getPanelTopBySlidingState(@SlidingUpPanelLayout.SlideState int slideState) {
+        if (slideState == EXPANDED) {
             return mPaddingTop;
-        } else if (mSlideState == COLLAPSED) {
-            return getPanelExpendedHeight() - getPanelCollapsedHeight();
+        } else if (slideState == COLLAPSED) {
+            return getPanelExpandedHeight() - getPanelCollapsedHeight();
         }
         return 0;
     }
 
     @Override
-    public void onSliding(ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
+    public void onSliding(@NonNull ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
 
     }
 

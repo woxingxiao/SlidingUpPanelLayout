@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
@@ -74,13 +75,14 @@ public abstract class BaseWeatherPanelView extends CardView implements ISlidingU
         return mRealPanelHeight;
     }
 
+    @NonNull
     @Override
     public BaseWeatherPanelView getPanelView() {
         return this;
     }
 
     @Override
-    public int getPanelExpendedHeight() {
+    public int getPanelExpandedHeight() {
         if (mExpendedHeight == 0)
             mExpendedHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
@@ -99,13 +101,13 @@ public abstract class BaseWeatherPanelView extends CardView implements ISlidingU
     }
 
     @Override
-    public int getPanelTopBySlidingState() {
-        if (mSlideState == SlidingUpPanelLayout.EXPANDED) {
+    public int getPanelTopBySlidingState(@SlidingUpPanelLayout.SlideState int slideState) {
+        if (slideState == SlidingUpPanelLayout.EXPANDED) {
             return 0;
-        } else if (mSlideState == COLLAPSED) {
-            return getPanelExpendedHeight() - getPanelCollapsedHeight();
-        } else if (mSlideState == SlidingUpPanelLayout.HIDDEN) {
-            return getPanelExpendedHeight();
+        } else if (slideState == COLLAPSED) {
+            return getPanelExpandedHeight() - getPanelCollapsedHeight();
+        } else if (slideState == SlidingUpPanelLayout.HIDDEN) {
+            return getPanelExpandedHeight();
         }
         return 0;
     }
@@ -120,16 +122,16 @@ public abstract class BaseWeatherPanelView extends CardView implements ISlidingU
     }
 
     @Override
-    public void onSliding(ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
+    public void onSliding(@NonNull ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
         if (panel != this) {
-            int myTop = (int) (getPanelExpendedHeight() + getSlope(((BaseWeatherPanelView) panel).getRealPanelHeight()) * top);
+            int myTop = (int) (getPanelExpandedHeight() + getSlope(((BaseWeatherPanelView) panel).getRealPanelHeight()) * top);
             setTop(myTop);
         }
     }
 
     public float getSlope(int slidingViewRealHeight) {
         if (mSlope == 0) {
-            mSlope = -1.0f * getRealPanelHeight() / (getPanelExpendedHeight() - slidingViewRealHeight);
+            mSlope = -1.0f * getRealPanelHeight() / (getPanelExpandedHeight() - slidingViewRealHeight);
         }
 
         return mSlope;

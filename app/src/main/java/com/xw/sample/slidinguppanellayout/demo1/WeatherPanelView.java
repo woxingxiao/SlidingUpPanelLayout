@@ -2,6 +2,7 @@ package com.xw.sample.slidinguppanellayout.demo1;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,7 +124,7 @@ public class WeatherPanelView extends BaseWeatherPanelView implements View.OnCli
     }
 
     @Override
-    public void onSliding(ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
+    public void onSliding(@NonNull ISlidingUpPanel panel, int top, int dy, float slidedProgress) {
         super.onSliding(panel, top, dy, slidedProgress);
 
         if (dy < 0) { // 向上
