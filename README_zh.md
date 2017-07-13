@@ -2,11 +2,11 @@
 [![Download](https://api.bintray.com/packages/woxingxiao/maven/SlidingUpPanelLayout/images/download.svg) ](https://bintray.com/woxingxiao/maven/SlidingUpPanelLayout/_latestVersion)
 [![License](http://img.shields.io/badge/License-Apache%202.0-brightgreen.svg?style=flat)](https://opensource.org/licenses/Apache-2.0)
 
-[**中文说明**](https://github.com/woxingxiao/SlidingUpPanelLayout/blob/master/README_zh.md)
+[**ENGLISH**](https://github.com/woxingxiao/SlidingUpPanelLayout/blob/master/README.md)
 
 ![logo](https://github.com/woxingxiao/SlidingUpPanelLayout/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 
-**A powerful and flexible `SlidingPanelLayout`, which can support multiple panels in the vertical direction.**
+**一个强大而灵活的`SlidingPanelLayout`，可以在竖直方向上操控多个panel，实现炫酷的交互效果。**
 
 ****
 ## Screenshot
@@ -22,7 +22,7 @@
 ```
 
 ## Usage
-### 1. java (Dynamic way)
+### 1. java (动态方式)
 ```java
 SlidingUpPanelLayout.setAdapter(new SlidingUpPanelLayout.Adapter() {
 
@@ -69,7 +69,7 @@ SlidingUpPanelLayout.setAdapter(new SlidingUpPanelLayout.Adapter() {
 ```
 Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/app/src/main/java/com/xw/sample/slidinguppanellayout/demo1) for more details.
 
-### 2. xml  (Static way)
+### 2. xml  (静态方式)
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <com.xw.repo.SlidingUpPanelLayout
@@ -80,7 +80,7 @@ Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/ap
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- background view, the position at 0 can only have one directly view, it can be a view or a layout. -->
+    <!-- 背景view, 在位置0处只能有一个直接子view，可以是一个view也可以是一个layout。 -->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/bg_layout"
         android:layout_width="match_parent"
@@ -118,7 +118,7 @@ Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/ap
             tools:alpha="1.0"/>
     </android.support.constraint.ConstraintLayout>
 
-    <!-- panel view, the position from 1 to n must be the one which implemented the interface ISlidingUpPanel.-->
+    <!-- panel view, 从位置1到最后，这些子view必须是实现了ISlidingUpPanel接口的view.-->
     <com.xw.sample.slidinguppanellayout.demo2.CardPanelView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -153,10 +153,9 @@ Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/ap
 Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/app/src/main/java/com/xw/sample/slidinguppanellayout/demo2) for more details.
 
 ## Attentions
-- Your calculation must be accurate when your `PanelView` implement the interface `ISlidingUpPanel`,
-which can make sure `SlidingUpPanelLayout` to work properly. Generally my demos are good reference.
-- Don't set `onTouchListener` for your `PanelView` in your own code, or may cause `SlidingUpPanelLayout` working abnormally.
-- Don't load too many `PanelView`s because the recycling mechanism have not been considered.
+- 当你的`PanelView`实现`ISlidingUpPanel`后，计算需要准确无误才能确保`SlidingUpPanelLayout`工作正常。通常情况可参考我的demo来改。
+- 不要为你的`PanelView`设置`onTouchListener`监听，否则可能造成`SlidingUpPanelLayout`工作异常。
+- 不要加载太多的`PanelView`，因为没有考虑回收机制，过多必然会影响性能。
 
 ## Attributes
 ```xml
@@ -165,7 +164,7 @@ which can make sure `SlidingUpPanelLayout` to work properly. Generally my demos 
     <attr name="spl_collapseThreshold" format="float"/>
 ```
 
-Welcome to **issue** or **pull request**.
+欢迎提交**issue**或者**pull request**.
 
 ## License
 ```
