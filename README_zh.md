@@ -14,6 +14,8 @@
 ![demo2](https://github.com/woxingxiao/SlidingUpPanelLayout/blob/master/screenshot/demo2.gif)
 
 ## Download
+### 1. [sample apk](https://fir.im/spl)
+### 2. gradle
 ```groovy
   dependencies {
      // e.g. compile 'com.xw.repo:SlidingUpPanelLayout:1.0.0@aar'
