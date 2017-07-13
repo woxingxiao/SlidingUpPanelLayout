@@ -18,7 +18,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * <></>
+ * <p>
+ * A vertical-handled and multi-panel support SlidingPanelLayout.
+ * </p>
  * Created by woxignxiao on 2017-07-10.
  */
 
@@ -29,6 +31,20 @@ public class SlidingUpPanelLayout extends ViewGroup {
     public static final int HIDDEN = 2;
     public static final int DRAGGING = 3;
 
+    /**
+     * <p>
+     * EXPANDED - 0. The <b>Panel</b> is expanded completely.
+     * </p>
+     * <p>
+     * COLLAPSED - 1. The <b>Panel</b> is collapsed completely.
+     * </p>
+     * <p>
+     * HIDDEN - 2. The <b>Panel</b> is hidden completely.
+     * </p>
+     * <p>
+     * DRAGGING - 3. The <b>Panel</b> is being dragging.
+     * </p>
+     */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({EXPANDED, COLLAPSED, HIDDEN, DRAGGING})
     public @interface SlideState {
@@ -36,15 +52,30 @@ public class SlidingUpPanelLayout extends ViewGroup {
 
     private static final int DEFAULT_MIN_FLING_VELOCITY = 400; // dips per second
 
+    /**
+     * Whether <b>Panel</b>s can be slided or not.
+     */
     private boolean isSlidingEnabled;
-    private float mExpendThreshold;
+
+    /**
+     * The threshold of expanding action would be triggered. The value form 0 to 1.
+     */
+    private float mExpandThreshold;
+
+    /**
+     * The threshold of collapsing action would be triggered. The value form 0 to 1.
+     */
     private float mCollapseThreshold;
 
     private ISlidingUpPanel mSlidingUpPanel;
+
+    /**
+     * The percent of slided distance and the <i>SlideRange</i> (expandedHeight - collapsedHeight).
+     */
     private float mSlidedProgress;
     private boolean isSlidingUp;
     private PanelSlideListener mPanelSlideListener;
-    private final ViewDragHelper mDragHelper;
+    private final ViewDragHelper mDragHelper; // core
     private boolean isFirstLayout = true;
     private Adapter mAdapter;
 
@@ -61,8 +92,8 @@ public class SlidingUpPanelLayout extends ViewGroup {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SlidingUpPanelLayout, defStyle, 0);
         isSlidingEnabled = !a.getBoolean(R.styleable.SlidingUpPanelLayout_spl_disableSliding, false);
-        mExpendThreshold = a.getFloat(R.styleable.SlidingUpPanelLayout_spl_expendThreshold, 0.0f);
-        mCollapseThreshold = a.getFloat(R.styleable.SlidingUpPanelLayout_spl_expendThreshold, 0.7f);
+        mExpandThreshold = a.getFloat(R.styleable.SlidingUpPanelLayout_spl_expandThreshold, 0.0f);
+        mCollapseThreshold = a.getFloat(R.styleable.SlidingUpPanelLayout_spl_collapseThreshold, 0.7f);
         a.recycle();
 
         if (isInEditMode()) {
@@ -86,6 +117,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         super.onDetachedFromWindow();
 
         isFirstLayout = true;
+        mSlidingUpPanel = null;
         if (mAdapter != null) {
             mAdapter.setSlidingUpPanelLayout(null);
             mAdapter = null;
@@ -182,8 +214,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
             int childRight = childLeft + child.getMeasuredWidth();
 
             if (child instanceof ISlidingUpPanel) {
-                childTop = ((ISlidingUpPanel) child).getPanelTopBySlidingState() + getPaddingTop();
-                childBottom = childTop + ((ISlidingUpPanel) child).getPanelExpendedHeight();
+                ISlidingUpPanel panel = (ISlidingUpPanel) child;
+                childTop = panel.getPanelTopBySlidingState(panel.getSlideState()) + getPaddingTop();
+                childBottom = childTop + ((ISlidingUpPanel) child).getPanelExpandedHeight();
             }
 
             child.layout(childLeft, childTop, childRight, childBottom);
@@ -209,12 +242,13 @@ public class SlidingUpPanelLayout extends ViewGroup {
 
         if (h != oldh) {
             isFirstLayout = true;
+            mSlidingUpPanel = null;
         }
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!isEnabled() || !isSlidingEnabled) {
+        if (!isEnabled() || !isSlidingEnabled()) {
             mDragHelper.cancel();
             return super.onInterceptTouchEvent(ev);
         }
@@ -251,6 +285,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
     }
 
+    /////////////////////////////////// APIs begin /////////////////////////////////////
     public boolean expandPanel(@NonNull ISlidingUpPanel panel) {
         mSlidingUpPanel = panel;
 
@@ -258,6 +293,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     public boolean expandPanel() {
+        if (mSlidingUpPanel == null)
+            return false;
+
         if (isFirstLayout) {
             mSlidingUpPanel.setSlideState(EXPANDED);
             return true;
@@ -273,6 +311,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     public boolean collapsePanel() {
+        if (mSlidingUpPanel == null)
+            return false;
+
         if (isFirstLayout) {
             mSlidingUpPanel.setSlideState(COLLAPSED);
             return true;
@@ -297,12 +338,12 @@ public class SlidingUpPanelLayout extends ViewGroup {
         return isSlidingEnabled && mSlidingUpPanel != null;
     }
 
-    public float getExpendThreshold() {
-        return mExpendThreshold;
+    public float getExpandThreshold() {
+        return mExpandThreshold;
     }
 
-    public void setExpendThreshold(float expendThreshold) {
-        mExpendThreshold = expendThreshold;
+    public void setExpandThreshold(float expandThreshold) {
+        mExpandThreshold = expandThreshold;
     }
 
     public float getCollapseThreshold() {
@@ -348,6 +389,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     public Adapter getAdapter() {
         return mAdapter;
     }
+    /////////////////////////////////// APIs end /////////////////////////////////////
 
     @Override
     protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
@@ -385,12 +427,12 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     private int computePanelTopPosition(float slideProgress) {
-        return (int) ((mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight()) * (1 - slideProgress));
+        return (int) ((mSlidingUpPanel.getPanelExpandedHeight() - mSlidingUpPanel.getPanelCollapsedHeight()) * (1 - slideProgress));
     }
 
     private float computeSlidedProgress(int topPosition) {
         final int collapsedTop = computePanelTopPosition(0);
-        return (float) (collapsedTop - topPosition) / (mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight());
+        return (float) (collapsedTop - topPosition) / (mSlidingUpPanel.getPanelExpandedHeight() - mSlidingUpPanel.getPanelCollapsedHeight());
     }
 
     private class DragHelperCallback extends ViewDragHelper.Callback {
@@ -456,7 +498,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             int target;
             if (isSlidingUp) { // intent to expend
-                target = computePanelTopPosition(mSlidedProgress >= mExpendThreshold ? 1.0f : 0.0f);
+                target = computePanelTopPosition(mSlidedProgress >= mExpandThreshold ? 1.0f : 0.0f);
             } else { // intent to collapse
                 target = computePanelTopPosition(mSlidedProgress >= mCollapseThreshold ? 1.0f : 0.0f);
             }
@@ -470,7 +512,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         @Override
         public int getViewVerticalDragRange(View child) {
             if (mSlidingUpPanel != null) {
-                return mSlidingUpPanel.getPanelExpendedHeight() - mSlidingUpPanel.getPanelCollapsedHeight();
+                return mSlidingUpPanel.getPanelExpandedHeight() - mSlidingUpPanel.getPanelCollapsedHeight();
             }
 
             return 0;
@@ -513,7 +555,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
 
         SavedState ss = new SavedState(superState);
         ss.isSlidingEnable = isSlidingEnabled;
-        ss.expendThreshold = mExpendThreshold;
+        ss.expendThreshold = mExpandThreshold;
         ss.collapseThreshold = mCollapseThreshold;
 
         return ss;
@@ -525,7 +567,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         super.onRestoreInstanceState(ss.getSuperState());
 
         isSlidingEnabled = ss.isSlidingEnable;
-        mExpendThreshold = ss.expendThreshold;
+        mExpandThreshold = ss.expendThreshold;
         mCollapseThreshold = ss.collapseThreshold;
     }
 

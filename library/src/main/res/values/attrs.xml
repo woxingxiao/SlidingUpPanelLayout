@@ -3,7 +3,7 @@
 
     <declare-styleable name="SlidingUpPanelLayout">
         <attr name="spl_disableSliding" format="boolean"/>
-        <attr name="spl_expendThreshold" format="float"/>
+        <attr name="spl_expandThreshold" format="float"/>
         <attr name="spl_collapseThreshold" format="float"/>
     </declare-styleable>
 
