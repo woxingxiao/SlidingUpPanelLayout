@@ -29,7 +29,7 @@ dependencies {
 
 publish {
     userOrg = 'woxingxiao'
-    groupId = 'com.xw.repo'
+    groupId = 'com.xw.repo.supl'
     artifactId = 'SlidingUpPanelLayout'
     publishVersion = VERSION_NAME
     desc = 'A vertical-handled and multi-panel support SlidingPanelLayout.'
