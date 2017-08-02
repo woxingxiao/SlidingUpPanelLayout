@@ -10,8 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.xw.repo.ISlidingUpPanel;
-import com.xw.repo.SlidingUpPanelLayout;
+import com.xw.repo.supl.ISlidingUpPanel;
+import com.xw.repo.supl.SlidingUpPanelLayout;
 import com.xw.sample.slidinguppanellayout.R;
 import com.xw.sample.slidinguppanellayout.Util;
 
@@ -23,9 +23,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.xw.repo.SlidingUpPanelLayout.COLLAPSED;
-import static com.xw.repo.SlidingUpPanelLayout.EXPANDED;
-import static com.xw.repo.SlidingUpPanelLayout.HIDDEN;
+import static com.xw.repo.supl.SlidingUpPanelLayout.COLLAPSED;
+import static com.xw.repo.supl.SlidingUpPanelLayout.EXPANDED;
+import static com.xw.repo.supl.SlidingUpPanelLayout.HIDDEN;
+
 
 public class DemoActivity1 extends AppCompatActivity {
 

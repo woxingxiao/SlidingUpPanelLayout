@@ -9,8 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.xw.repo.ISlidingUpPanel;
-import com.xw.repo.SlidingUpPanelLayout;
+import com.xw.repo.supl.ISlidingUpPanel;
+import com.xw.repo.supl.SlidingUpPanelLayout;
 import com.xw.sample.slidinguppanellayout.R;
 
 import butterknife.BindView;

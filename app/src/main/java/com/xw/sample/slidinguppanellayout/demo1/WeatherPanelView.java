@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xw.repo.ISlidingUpPanel;
-import com.xw.repo.SlidingUpPanelLayout;
+import com.xw.repo.supl.ISlidingUpPanel;
+import com.xw.repo.supl.SlidingUpPanelLayout;
 import com.xw.sample.slidinguppanellayout.R;
 
 import java.util.List;

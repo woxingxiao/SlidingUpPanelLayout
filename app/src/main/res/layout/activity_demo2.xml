@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xw.repo.SlidingUpPanelLayout
+<com.xw.repo.supl.SlidingUpPanelLayout
     android:id="@+id/sliding_up_panel_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -72,4 +72,4 @@
         app:cpv_cardCount="4"
         app:cpv_cardImageRes="@mipmap/pic_card4"
         app:cpv_cardPosition="3"/>
-</com.xw.repo.SlidingUpPanelLayout>
+</com.xw.repo.supl.SlidingUpPanelLayout>

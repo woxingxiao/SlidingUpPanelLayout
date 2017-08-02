@@ -11,12 +11,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.xw.repo.ISlidingUpPanel;
-import com.xw.repo.SlidingUpPanelLayout;
+import com.xw.repo.supl.ISlidingUpPanel;
+import com.xw.repo.supl.SlidingUpPanelLayout;
 import com.xw.sample.slidinguppanellayout.R;
 
-import static com.xw.repo.SlidingUpPanelLayout.COLLAPSED;
-import static com.xw.repo.SlidingUpPanelLayout.EXPANDED;
+import static com.xw.repo.supl.SlidingUpPanelLayout.COLLAPSED;
+import static com.xw.repo.supl.SlidingUpPanelLayout.EXPANDED;
+
 
 /**
  * <p/>
@@ -64,7 +65,7 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
             cardImg.setImageResource(imageRes);
         }
 
-        mPanelHeight = dp2px(100) - mCardCount * dp2px(10);
+        mPanelHeight = dp2px(108) - mCardCount * dp2px(10);
         if (mPanelHeight <= 10) {
             mPanelHeight = dp2px(20);
         }

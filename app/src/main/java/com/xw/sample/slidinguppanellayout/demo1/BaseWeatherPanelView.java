@@ -13,10 +13,10 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.xw.repo.ISlidingUpPanel;
-import com.xw.repo.SlidingUpPanelLayout;
+import com.xw.repo.supl.ISlidingUpPanel;
+import com.xw.repo.supl.SlidingUpPanelLayout;
 
-import static com.xw.repo.SlidingUpPanelLayout.COLLAPSED;
+import static com.xw.repo.supl.SlidingUpPanelLayout.COLLAPSED;
 
 /**
  * <p/>
