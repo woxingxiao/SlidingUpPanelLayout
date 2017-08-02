@@ -1,4 +1,4 @@
-package com.xw.repo;
+package com.xw.repo.supl;
 
 import android.content.Context;
 import android.content.res.TypedArray;
