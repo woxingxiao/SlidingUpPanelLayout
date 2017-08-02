@@ -18,7 +18,7 @@
 ### 2. gradle
 ```groovy
   dependencies {
-     // e.g. compile 'com.xw.repo.supl:SlidingUpPanelLayout:1.0.0@aar'
+     // e.g. compile 'com.xw.repo.supl:SlidingUpPanelLayout:1.1.0@aar'
      compile 'com.xw.repo.supl:SlidingUpPanelLayout:${LATEST_VERSION}@aar'
   }
 ```
