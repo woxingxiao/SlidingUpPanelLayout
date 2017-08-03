@@ -1,5 +1,5 @@
 # SlidingUpPanelLayout
-[![Download](https://api.bintray.com/packages/woxingxiao/maven/SlidingUpPanelLayout/images/download.svg) ](https://bintray.com/woxingxiao/maven/SlidingUpPanelLayout/_latestVersion)
+[![](https://jitpack.io/v/woxingxiao/SlidingUpPanelLayout.svg)](https://jitpack.io/#woxingxiao/SlidingUpPanelLayout)
 [![License](http://img.shields.io/badge/License-Apache%202.0-brightgreen.svg?style=flat)](https://opensource.org/licenses/Apache-2.0)
 
 [**ENGLISH**](https://github.com/woxingxiao/SlidingUpPanelLayout/blob/master/README.md)
@@ -15,11 +15,21 @@
 
 ## Download
 ### 1. [sample apk](https://fir.im/spl)
-### 2. gradle
+### 2. Gradle
+root project:`build.gradle`
+```groovy
+  allprojects {
+	 repositories {
+		...
+		maven { url "https://jitpack.io" }
+	 }
+  }
+```
+app:`build.gradle`
 ```groovy
   dependencies {
-     // e.g. compile 'com.xw.repo.supl:SlidingUpPanelLayout:1.1.0@aar'
-     compile 'com.xw.repo.supl:SlidingUpPanelLayout:${LATEST_VERSION}@aar'
+     // e.g. compile 'com.github.woxingxiao:SlidingUpPanelLayout:1.1.0'
+     compile 'com.github.woxingxiao:SlidingUpPanelLayout:${LATEST_VERSION}'
   }
 ```
 
@@ -74,7 +84,7 @@ Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/ap
 ### 2. xml  (静态方式)
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<com.xw.repo.SlidingUpPanelLayout
+<com.xw.repo.supl.SlidingUpPanelLayout
     android:id="@+id/sliding_up_panel_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -149,7 +159,7 @@ Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/ap
         app:cpv_cardImageRes="@mipmap/pic_card4"
         app:cpv_cardPosition="3"/>
 
-</com.xw.repo.SlidingUpPanelLayout>
+</com.xw.repo.supl.SlidingUpPanelLayout>
 
 ```
 Go to [sample](https://github.com/woxingxiao/SlidingUpPanelLayout/tree/master/app/src/main/java/com/xw/sample/slidinguppanellayout/demo2) for more details.
