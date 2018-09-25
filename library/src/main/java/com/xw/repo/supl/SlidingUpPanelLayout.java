@@ -6,7 +6,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
@@ -231,6 +230,10 @@ public class SlidingUpPanelLayout extends ViewGroup {
             public boolean onTouch(View v, MotionEvent event) {
                 mSlidingUpPanel = (ISlidingUpPanel) child;
 
+                if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+                    v.performClick();
+                }
+
                 return false;
             }
         });
@@ -253,7 +256,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
             return super.onInterceptTouchEvent(ev);
         }
 
-        int action = MotionEventCompat.getActionMasked(ev);
+        int action = ev.getActionMasked();
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mDragHelper.cancel();
             return false;
@@ -263,9 +266,17 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (!isSlidingEnabled()) {
             return super.onTouchEvent(ev);
+        }
+        if (ev.getActionMasked() == MotionEvent.ACTION_UP) {
+            performClick();
         }
 
         mDragHelper.processTouchEvent(ev);
@@ -435,10 +446,11 @@ public class SlidingUpPanelLayout extends ViewGroup {
         return (float) (collapsedTop - topPosition) / (mSlidingUpPanel.getPanelExpandedHeight() - mSlidingUpPanel.getPanelCollapsedHeight());
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private class DragHelperCallback extends ViewDragHelper.Callback {
 
         @Override
-        public boolean tryCaptureView(View child, int pointerId) {
+        public boolean tryCaptureView(@NonNull View child, int pointerId) {
             return child == mSlidingUpPanel;
         }
 
@@ -474,12 +486,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewCaptured(View capturedChild, int activePointerId) {
-
-        }
-
-        @Override
-        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
             isSlidingUp = dy < 0;
             mSlidingUpPanel.setSlideState(DRAGGING);
 
@@ -495,7 +502,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             int target;
             if (isSlidingUp) { // intent to expend
                 target = computePanelTopPosition(mSlidedProgress >= mExpandThreshold ? 1.0f : 0.0f);
@@ -510,7 +517,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
 
         @Override
-        public int getViewVerticalDragRange(View child) {
+        public int getViewVerticalDragRange(@NonNull View child) {
             if (mSlidingUpPanel != null) {
                 return mSlidingUpPanel.getPanelExpandedHeight() - mSlidingUpPanel.getPanelCollapsedHeight();
             }
@@ -519,13 +526,14 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
 
         @Override
-        public int clampViewPositionVertical(View child, int top, int dy) {
+        public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
             final int collapsedTop = computePanelTopPosition(0.0f);
             final int expandedTop = computePanelTopPosition(1.0f);
             return Math.min(Math.max(top, expandedTop), collapsedTop);
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public static class LayoutParams extends MarginLayoutParams {
 
         public LayoutParams() {
@@ -571,6 +579,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         mCollapseThreshold = ss.collapseThreshold;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private static class SavedState extends BaseSavedState {
 
         boolean isSlidingEnable;
@@ -612,6 +621,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
                 };
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public static abstract class Adapter {
 
         private SlidingUpPanelLayout mSlidingUpPanelLayout;
@@ -646,6 +656,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public interface PanelSlideListener {
 
         void onPanelSliding(ISlidingUpPanel panel, float slideProgress);
@@ -657,6 +668,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         void onPanelHidden(ISlidingUpPanel panel);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public static class PanelSlideListenerAdapter implements PanelSlideListener {
         @Override
         public void onPanelSliding(ISlidingUpPanel panel, float slideProgress) {
