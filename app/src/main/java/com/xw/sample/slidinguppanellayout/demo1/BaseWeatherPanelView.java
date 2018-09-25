@@ -3,6 +3,7 @@ package com.xw.sample.slidinguppanellayout.demo1;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -10,8 +11,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.xw.repo.supl.ISlidingUpPanel;
 import com.xw.repo.supl.SlidingUpPanelLayout;
@@ -19,7 +22,7 @@ import com.xw.repo.supl.SlidingUpPanelLayout;
 import static com.xw.repo.supl.SlidingUpPanelLayout.COLLAPSED;
 
 /**
- * <p/>
+ * <p>
  * Created by woxingxiao on 2017-07-10.
  */
 
@@ -83,9 +86,16 @@ public abstract class BaseWeatherPanelView extends CardView implements ISlidingU
 
     @Override
     public int getPanelExpandedHeight() {
-        if (mExpendedHeight == 0)
-            mExpendedHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-
+        if (mExpendedHeight == 0) {
+            DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
+            if (Build.VERSION.SDK_INT > 16) {
+                WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                if (windowManager != null) {
+                    windowManager.getDefaultDisplay().getRealMetrics(dm);
+                }
+            }
+            mExpendedHeight = dm.heightPixels;
+        }
         return mExpendedHeight;
     }
 

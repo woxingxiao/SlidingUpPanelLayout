@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.util.TypedValue;
 
 /**
- * <><p/>
+ * <p>
  * Created by woxingxiao on 2017-07-10.
  */
 

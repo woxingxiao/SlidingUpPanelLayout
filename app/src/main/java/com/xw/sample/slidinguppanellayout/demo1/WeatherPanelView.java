@@ -17,7 +17,7 @@ import com.xw.sample.slidinguppanellayout.R;
 import java.util.List;
 
 /**
- * <p/>
+ * <p>
  * Created by woxingxiao on 2017-07-10.
  */
 
@@ -66,27 +66,27 @@ public class WeatherPanelView extends BaseWeatherPanelView implements View.OnCli
         mContentLayout = findViewById(R.id.panel_content_layout);
         mMenuLayout = findViewById(R.id.panel_menu_layout);
         mExpendLayout = findViewById(R.id.panel_expend_layout);
-        mCollapseImg = (ImageView) findViewById(R.id.panel_collapse_img);
-        mSettingsImg = (ImageView) findViewById(R.id.panel_settings_img);
-        mCityText = (TextView) findViewById(R.id.panel_city_text);
-        mWeatherIcon = (ImageView) findViewById(R.id.panel_weather_icon);
-        mWeatherDescText = (TextView) findViewById(R.id.panel_weather_desc_text);
-        mTempNowText = (TextView) findViewById(R.id.panel_temp_now_text);
-        mAqiDescText = (TextView) findViewById(R.id.panel_air_condition_text);
-        mDay1WeatherIcon = (ImageView) findViewById(R.id.day1_weather_icon);
-        mDay1WeatherDescText = (TextView) findViewById(R.id.day1_weather_desc_text);
-        mDay1TempRangeText = (TextView) findViewById(R.id.day1_temp_range_text);
-        mDay2WeatherIcon = (ImageView) findViewById(R.id.day2_weather_icon);
-        mDay2WeatherDescText = (TextView) findViewById(R.id.day2_weather_desc_text);
-        mDay2TempRangeText = (TextView) findViewById(R.id.day2_temp_range_text);
-        mDay3WeatherIcon = (ImageView) findViewById(R.id.day3_weather_icon);
-        mDay3WeatherDescText = (TextView) findViewById(R.id.day3_weather_desc_text);
-        mDay3TempRangeText = (TextView) findViewById(R.id.day3_temp_range_text);
+        mCollapseImg = findViewById(R.id.panel_collapse_img);
+        mSettingsImg = findViewById(R.id.panel_settings_img);
+        mCityText = findViewById(R.id.panel_city_text);
+        mWeatherIcon = findViewById(R.id.panel_weather_icon);
+        mWeatherDescText = findViewById(R.id.panel_weather_desc_text);
+        mTempNowText = findViewById(R.id.panel_temp_now_text);
+        mAqiDescText = findViewById(R.id.panel_air_condition_text);
+        mDay1WeatherIcon = findViewById(R.id.day1_weather_icon);
+        mDay1WeatherDescText = findViewById(R.id.day1_weather_desc_text);
+        mDay1TempRangeText = findViewById(R.id.day1_temp_range_text);
+        mDay2WeatherIcon = findViewById(R.id.day2_weather_icon);
+        mDay2WeatherDescText = findViewById(R.id.day2_weather_desc_text);
+        mDay2TempRangeText = findViewById(R.id.day2_temp_range_text);
+        mDay3WeatherIcon = findViewById(R.id.day3_weather_icon);
+        mDay3WeatherDescText = findViewById(R.id.day3_weather_desc_text);
+        mDay3TempRangeText = findViewById(R.id.day3_temp_range_text);
         mCollapseLayout = findViewById(R.id.panel_collapse_layout);
-        mCityTextCollapse = (TextView) findViewById(R.id.panel_city_text_collapse);
-        mWeatherDescTextCollapse = (TextView) findViewById(R.id.panel_weather_desc_text_collapse);
-        mTempNowTextCollapse = (TextView) findViewById(R.id.panel_temp_now_collapse);
-        mWeatherIconCollapse = (ImageView) findViewById(R.id.panel_weather_icon_collapse);
+        mCityTextCollapse = findViewById(R.id.panel_city_text_collapse);
+        mWeatherDescTextCollapse = findViewById(R.id.panel_weather_desc_text_collapse);
+        mTempNowTextCollapse = findViewById(R.id.panel_temp_now_collapse);
+        mWeatherIconCollapse = findViewById(R.id.panel_weather_icon_collapse);
         mCollapseImg.setOnClickListener(this);
         mSettingsImg.setOnClickListener(this);
 

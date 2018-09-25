@@ -3,7 +3,7 @@ package com.xw.sample.slidinguppanellayout.demo1;
 import java.util.List;
 
 /**
- * <><p/>
+ * <p>
  * Created by woxingxiao on 2017-07-10.
  */
 

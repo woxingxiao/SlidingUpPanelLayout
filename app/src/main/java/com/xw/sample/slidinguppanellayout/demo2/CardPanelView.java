@@ -20,7 +20,7 @@ import static com.xw.repo.supl.SlidingUpPanelLayout.EXPANDED;
 
 
 /**
- * <p/>
+ * <p>
  * Created by woxingxiao on 2017-07-11.
  */
 
@@ -55,7 +55,7 @@ public class CardPanelView extends FrameLayout implements ISlidingUpPanel<CardPa
 
         LayoutInflater.from(context).inflate(R.layout.content_card_panel_view, this, true);
         View cardView = findViewById(R.id.panel_card_view);
-        ImageView cardImg = (ImageView) findViewById(R.id.panel_card_img);
+        ImageView cardImg = findViewById(R.id.panel_card_img);
 
         int width = getResources().getDisplayMetrics().widthPixels;
         int height = (int) (width * 10 / 16.0f); // W:H = 16:10

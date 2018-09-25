@@ -4,7 +4,7 @@ import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 
 /**
- * <p/>
+ * <p>
  * Created by woxingxiao on 2017-07-14.
  */
 
